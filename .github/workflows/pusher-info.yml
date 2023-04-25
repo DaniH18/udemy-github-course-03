@@ -13,14 +13,16 @@ jobs:
           echo "## Pusher Details" >> $GITHUB_STEP_SUMMARY
           echo "* Pusher info: '${{ toJSON(github.event.pusher) }}'" >> $GITHUB_STEP_SUMMARY
   commit-info:
+    needs: [push-info]
     runs-on: ubuntu-latest
     name: commit-details
     steps:
-      - name: Show pusher details...
+      - name: Show commit details...
         run: |
-          echo "## Pusher Details" >> $GITHUB_STEP_SUMMARY
+          echo "## Commit Details" >> $GITHUB_STEP_SUMMARY
           echo "* Commit info: '${{ toJSON(github.event.head_commit) }}'" >> $GITHUB_STEP_SUMMARY
   context-info:
+    needs: [commit-info]
     runs-on: ubuntu-latest
     name: context-details
     steps:
@@ -30,3 +32,4 @@ jobs:
           echo "$GITHUB_CONTEXT" >> $GITHUB_STEP_SUMMARY
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
+  
