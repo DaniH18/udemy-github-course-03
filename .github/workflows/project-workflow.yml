@@ -10,15 +10,15 @@ jobs:
   get-date:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Curent Date
+      - name: Get Current Date
         id: current-date
-        run: echo "date=$(/bin/date -u "+%Y%m%d%H%M%S")" >> $GITHUB_OUTPUT
+        run: echo "date=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
   install:
     runs-on: ubuntu-latest
     needs: [ get-date ]
     steps:
       - name: Date from output
-        run: echo ${{needs.get-date.outputs.current-date}}
+        run: echo ${{needs.get-date.curent-date.outputs.date}}
 #      - name: Checkout
 #        uses: actions/checkout@v3
 #      - name: Show code
