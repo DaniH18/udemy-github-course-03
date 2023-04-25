@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Get Curent Date
         id: current-date
-        run: echo "::set-output name=date::$(/bin/date -u "+%Y%m%d%H%M%S")"
+        run: echo "date=$(/bin/date -u "+%Y%m%d%H%M%S")" >> $GITHUB_OUTPUT
   install:
     runs-on: ubuntu-latest
     needs: [ get-date ]
