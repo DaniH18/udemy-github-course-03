@@ -10,11 +10,11 @@ jobs:
   get-date:
     runs-on: ubuntu-latest
     steps:
-    - name: Get Date
-      id: get-date
-      run: |
-        echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-      shell: bash
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+        shell: bash
   install:
     runs-on: ubuntu-latest
     needs: [ get-date ]
