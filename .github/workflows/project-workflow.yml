@@ -10,21 +10,18 @@ jobs:
   get-date:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Current Date
+      - name: Set Current Date
         id: current-date
-        run: echo "date=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+        run: echo "CURRENT_DATE=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+      - name: Show Current Date
+        run: echo "${{steps.current-date.outputs.CURRENT_DATE}}"
   install:
     runs-on: ubuntu-latest
     needs: [ get-date ]
     steps:
       - name: Date from output
         run: |
-          echo "${{ toJSON(needs.get-date) }}"
-          echo "${{needs.get-date.curent-date}}"
-          echo "${{needs.get-date.curent-date.outputs}}"
-          echo "${{needs.get-date.curent-date.outputs.date}}"
-          echo "${{ toJSON(needs.get-date.outputs) }}"
-          echo "${{needs.get-date.outputs.date}}"
+          echo "${{needs.get-date.outputs.CURRENT_DATE}}"
 #      - name: Checkout
 #        uses: actions/checkout@v3
 #      - name: Show code
