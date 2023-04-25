@@ -101,7 +101,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: Cleanup
         run: |
-          gh actions-cache delete ${{ needs.cache-keys.outputs.install-key }}
+          gh actions-cache delete ${{ needs.cache-keys.outputs.install-key }} --confirm
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Verify caches
