@@ -26,7 +26,7 @@ jobs:
       - name: Date from output
         run: echo ${{needs.get-date.outputs.dateValue}}
       - name: Date from environment
-        run: echo ${{env.CURRENT_DATE}}
+        run: echo ${{needs.get-date.env.CURRENT_DATE}}
 #      - name: Checkout
 #        uses: actions/checkout@v3
 #      - name: Show code
