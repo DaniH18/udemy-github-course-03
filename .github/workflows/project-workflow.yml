@@ -9,6 +9,8 @@ env:
 jobs:
   get-date:
     runs-on: ubuntu-latest
+    outputs:
+      current-date: ${{steps.current-date.outputs.CURRENT_DATE}}
     steps:
       - name: Set Current Date
         id: current-date
@@ -21,7 +23,7 @@ jobs:
     steps:
       - name: Date from output
         run: |
-          echo "${{needs.get-date.outputs.CURRENT_DATE}}"
+          echo "${{needs.get-date.outputs.current-date}}"
 #      - name: Checkout
 #        uses: actions/checkout@v3
 #      - name: Show code
