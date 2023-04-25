@@ -21,27 +21,25 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ get-date ]
     steps:
-      - name: Date from output
-        run: |
-          echo "${{needs.get-date.outputs.current-date}}"
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#      - name: Show code
-#        run: ls
-#      - name: Install nodejs '${{ env.NODJS_VERSION }}'
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: ${{ env.NODJS_VERSION }}
-#      - name: Install dependencies
-#        run: npm ci
-#      - name: Cache install artifacts
-#        id: cache
-#        uses: martijnhols/actions-cache/save@v3
-#        with:
-#          path: |
-#            node_modules
-#          key: ${{ runner.os }}-install-artifact-${{ needs.get-date.outputs.current-date }}
-
+      - name: Date from 'get-date' output
+        run: echo "${{needs.get-date.outputs.current-date}}"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Show code
+        run: ls
+      - name: Install nodejs '${{ env.NODJS_VERSION }}'
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODJS_VERSION }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Cache install artifacts
+        id: cache
+        uses: martijnhols/actions-cache/save@v3
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-install-artifact-${{ needs.get-date.outputs.current-date }}
 #  lint:
 #    runs-on: ubuntu-latest
 #    needs: [ install ]
