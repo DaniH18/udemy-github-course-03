@@ -43,7 +43,7 @@ jobs:
           key: ${{needs.cache-keys.outputs.install-key}}
   lint:
     runs-on: ubuntu-latest
-    needs: [ install ]
+    needs: [ install,cache-keys ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -58,7 +58,7 @@ jobs:
         run: npm run lint
   test:
     runs-on: ubuntu-latest
-    needs: [ install ]
+    needs: [ install,cache-keys ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -73,7 +73,7 @@ jobs:
         run: npm run test
   build:
     runs-on: ubuntu-latest
-    needs: [ lint,test ]
+    needs: [ lint,test,cache-keys ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
