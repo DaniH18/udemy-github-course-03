@@ -7,11 +7,14 @@ jobs:
   details:
     runs-on: ubuntu-latest
     steps:
-      - name: Show details...
+      - name: Show pusher details...
         run: |
-          echo "### Details! :details:" >> $GITHUB_STEP_SUMMARY
-          echo "Pusher info: '${{ toJSON(github.event.pusher) }}'"
-          echo "Commit info: '${{ toJSON(github.event.head_commit) }}'"
+          echo "## Pusher Details" >> $GITHUB_STEP_SUMMARY
+          echo "* Pusher info: '${{ toJSON(github.event.pusher) }}'" >> $GITHUB_STEP_SUMMARY
+      - name: Show pusher details...
+        run: |
+          echo "## Pusher Details" >> $GITHUB_STEP_SUMMARY
+          echo "* Commit info: '${{ toJSON(github.event.head_commit) }}'" >> $GITHUB_STEP_SUMMARY
       - name: View github context
         run: echo "$GITHUB_CONTEXT"
         env:
