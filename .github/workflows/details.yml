@@ -2,6 +2,7 @@ name: Show Event Details
 
 on:
   issues:
+  workflow_dispatch:
 
 jobs:
   info:

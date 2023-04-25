@@ -105,7 +105,7 @@ jobs:
           gh actions-cache delete ${{ needs.cache-keys.outputs.install-key }} --confirm
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: Verify caches
+      - name: Verify caches are deleted
         run: gh actions-cache list
         env:
           GH_TOKEN: ${{ github.token }}
