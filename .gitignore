@@ -22,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/.github/workflows/issues.yml
+/.github/workflows/deployment*.yaml
