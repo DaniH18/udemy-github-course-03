@@ -17,7 +17,7 @@ jobs:
       shell: bash
   install:
     runs-on: ubuntu-latest
-    nedds: [ get-date ]
+    needs: [ get-date ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
