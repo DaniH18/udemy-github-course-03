@@ -1,0 +1,85 @@
+name: Project Workflow
+
+on:
+  push:
+
+env:
+  NODEJS_VERSION: 18
+
+jobs:
+  get-date:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Date
+      id: get-date
+      run: |
+        echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+      shell: bash
+  install:
+    runs-on: ubuntu-latest
+    nedds: [ get-date ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Show code
+        run: ls
+      - name: Install nodejs '${{ env.NODJS_VERSION }}'
+        uses: actions/setup-node@v3
+          with:
+            node-version: ${{ env.NODJS_VERSION }}
+      - name: Install dependencies
+        run: npm ci
+#      - name: Cache install artifacts
+#        id: cache
+#        uses: martijnhols/actions-cache/save@v3
+#        with:
+#          path: |
+#            node_modules
+#          key: ${{ runner.os }}-install-artifact-${{ get-date.steps.get-date.outputs.date }}
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: [ install ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+#      - name: Use install-artifact from cache
+#        uses: martijnhols/actions-cache/restore@v3
+#        with:
+#          path: |
+#            node_modules
+#          key: ${{ runner.os }}-install-artifact-${{ get-date.steps.get-date.outputs.date }}
+#          required: true
+      - name: Linting
+        run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    needs: [ install ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use install-artifact from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-install-artifact-${{ get-date.steps.get-date.outputs.date }}
+          required: true
+      - name: Linting
+        run: npm run test
+  buld:
+    runs-on: ubuntu-latest
+    needs: [ lint,test ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3-
+      - name: Use install-artifact from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-install-artifact-${{ get-date.steps.get-date.outputs.date }}
+          required: true
+      - name: Linting
+        run: npm run build
+
