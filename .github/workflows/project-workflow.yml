@@ -18,7 +18,13 @@ jobs:
     needs: [ get-date ]
     steps:
       - name: Date from output
-        run: echo ${{needs.get-date.curent-date.outputs.date}}
+        run: |
+          echo "${{needs.get-date}}"
+          echo "${{needs.get-date.curent-date}}"
+          echo "${{needs.get-date.curent-date.outputs}}"
+          echo "${{needs.get-date.curent-date.outputs.date}}"
+          echo "${{needs.get-date.outputs}}"
+          echo "${{needs.get-date.outputs.date}}"
 #      - name: Checkout
 #        uses: actions/checkout@v3
 #      - name: Show code
