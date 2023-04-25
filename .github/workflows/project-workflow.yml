@@ -19,7 +19,7 @@ jobs:
         run: echo "${{steps.current-date.outputs.CURRENT_DATE}}"
   install:
     runs-on: ubuntu-latest
-    needs: [ get-date ]
+    needs: [ cache-keys ]
     steps:
       - name: Install key from 'cache-keys' job output
         run: echo "${{needs.cache-keys.outputs.install-key}}"
@@ -87,7 +87,7 @@ jobs:
 #        run: npm run build
   cleanup:
     runs-on: ubuntu-latest
-    needs: [ install,get-date ]
+    needs: [ install,cache-keys ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -97,7 +97,7 @@ jobs:
         run: gh actions-cache list
       - name: Cleanup
         run: |
-          gh actions-cache delete ${{needs.cache-keys.outputs.install-key}}
+          gh actions-cache delete ${{ needs.cache-keys.outputs.install-key }}
       - name: Verify caches
         run: gh actions-cache list
 
